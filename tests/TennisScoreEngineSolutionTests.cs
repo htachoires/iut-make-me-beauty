@@ -23,4 +23,26 @@ public class TennisScoreEngineSolutionTests
     }
 
     #endregion
+
+    #region Solutions for Test2 (Player 2 wins after 4 points)
+
+    [Fact]
+    public void Test2_Should_ShowPlayer2Wins_When_Player2ScoresFourTimesFromStart()
+    {
+        // Arrange
+        var engine = new TennisScoreEngine();
+        engine.Player2Scores();
+        engine.Player2Scores();
+        engine.Player2Scores();
+
+        // Act
+        engine.Player2Scores();
+        var actualScore = engine.GetScore();
+
+        // Assert
+        Assert.Equal("Player 2 Wins", actualScore);
+    }
+
+    #endregion
+
 }
