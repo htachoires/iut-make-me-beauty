@@ -143,4 +143,70 @@ public class TennisScoreEngineSolutionTests
     }
 
     #endregion
+
+    #region Solutions for Test5 (Deuce → Advantage Player 2 → Win with loop)
+
+    [Fact]
+    public void Test5_Should_ReturnDeuce_When_BothPlayersHave3Points()
+    {
+        // Arrange
+        var engine = new TennisScoreEngine();
+        ScorePoints(engine, 3, 3);
+
+        // Act
+        var actualScore = engine.GetScore();
+
+        // Assert
+        Assert.Equal("Deuce", actualScore);
+    }
+
+    [Fact]
+    public void Test5_Should_ReturnAdvantagePlayer2_When_Player2ScoresOnceFromDeuce()
+    {
+        // Arrange
+        var engine = new TennisScoreEngine();
+        ScorePoints(engine, 3, 3);
+
+        // Act
+        engine.Player2Scores();
+        var actualScore = engine.GetScore();
+
+        // Assert
+        Assert.Equal("Advantage Player 2", actualScore);
+    }
+
+    [Fact]
+    public void Test5_Should_ShowPlayer2Wins_When_Player2ScoresTwiceFromDeuce()
+    {
+        // Arrange
+        var engine = new TennisScoreEngine();
+        ScorePoints(engine, 3, 3);
+        engine.Player2Scores();
+
+        // Act
+        engine.Player2Scores();
+        var actualScore = engine.GetScore();
+
+        // Assert
+        Assert.Equal("Player 2 Wins", actualScore);
+    }
+
+    #endregion
+
+    #region Helper Methods
+
+    private static void ScorePoints(TennisScoreEngine engine, int player1Points, int player2Points)
+    {
+        for (int i = 0; i < player1Points; i++)
+        {
+            engine.Player1Scores();
+        }
+
+        for (int i = 0; i < player2Points; i++)
+        {
+            engine.Player2Scores();
+        }
+    }
+
+    #endregion
 }
