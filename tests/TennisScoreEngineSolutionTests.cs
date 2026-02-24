@@ -81,4 +81,66 @@ public class TennisScoreEngineSolutionTests
     }
 
     #endregion
+
+    #region Solutions for Test4 (4 different scenarios: Love-Love, 15-Love, 30-Love, 30-15)
+
+    [Fact]
+    public void Test4_Should_ReturnLoveLove_When_InInitialState()
+    {
+        // Arrange
+        var engine = new TennisScoreEngine();
+
+        // Act
+        var actualScore = engine.GetScore();
+
+        // Assert
+        Assert.Equal("Love-Love", actualScore);
+    }
+
+    [Fact]
+    public void Test4_Should_Return15Love_When_Player1ScoresOnceFromLove()
+    {
+        // Arrange
+        var engine = new TennisScoreEngine();
+
+        // Act
+        engine.Player1Scores();
+        var actualScore = engine.GetScore();
+
+        // Assert
+        Assert.Equal("15-Love", actualScore);
+    }
+
+    [Fact]
+    public void Test4_Should_Return30Love_When_Player1ScoresTwiceFromLove()
+    {
+        // Arrange
+        var engine = new TennisScoreEngine();
+        engine.Player1Scores();
+
+        // Act
+        engine.Player1Scores();
+        var actualScore = engine.GetScore();
+
+        // Assert
+        Assert.Equal("30-Love", actualScore);
+    }
+
+    [Fact]
+    public void Test4_Should_Return30Dash15_When_Player1Has30AndPlayer2Has15()
+    {
+        // Arrange
+        var engine = new TennisScoreEngine();
+        engine.Player1Scores();
+        engine.Player1Scores();
+
+        // Act
+        engine.Player2Scores();
+        var actualScore = engine.GetScore();
+
+        // Assert
+        Assert.Equal("30-15", actualScore);
+    }
+
+    #endregion
 }
