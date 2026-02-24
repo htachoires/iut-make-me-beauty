@@ -45,4 +45,40 @@ public class TennisScoreEngineSolutionTests
 
     #endregion
 
+    #region Solutions for Test3 (Player 1 reaches 40, then wins - 2 assertions)
+
+    [Fact]
+    public void Test3_Should_Return40Love_When_Player1ScoresThreeTimesFromStart()
+    {
+        // Arrange
+        var engine = new TennisScoreEngine();
+        engine.Player1Scores();
+        engine.Player1Scores();
+
+        // Act
+        engine.Player1Scores();
+        var actualScore = engine.GetScore();
+
+        // Assert
+        Assert.Equal("40-Love", actualScore);
+    }
+
+    [Fact]
+    public void Test3_Should_ShowPlayer1Wins_When_Player1ScoresFourthPointAt40Love()
+    {
+        // Arrange
+        var engine = new TennisScoreEngine();
+        engine.Player1Scores();
+        engine.Player1Scores();
+        engine.Player1Scores();
+
+        // Act
+        engine.Player1Scores();
+        var actualScore = engine.GetScore();
+
+        // Assert
+        Assert.Equal("Player 1 Wins", actualScore);
+    }
+
+    #endregion
 }
